@@ -1,3 +1,6 @@
+mod models;
+use models::user::{User, LoginRequest, RegisterRequest};
+use serde_json::json;
 use actix_web::{web, App, HttpServer, HttpResponse, Responder};
 use jsonwebtoken::{encode, Header, EncodingKey};
 use bcrypt::{hash, verify, DEFAULT_COST};
@@ -15,28 +18,6 @@ use chrono::Utc;
 struct Claims {
     sub: String,
     exp: usize,
-}
-
-/// User registration request
-#[derive(Debug, Serialize, Deserialize)]
-struct RegisterRequest {
-    username: String,
-    password: String,
-}
-
-/// Login request
-#[derive(Debug, Serialize, Deserialize)]
-struct LoginRequest {
-    username: String,
-    password: String,
-}
-
-/// User in DB
-#[derive(Debug)]
-struct User {
-    id: Uuid,
-    username: String,
-    password_hash: String,
 }
 
 /// DB Client
